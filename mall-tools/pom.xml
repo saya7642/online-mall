@@ -12,6 +12,7 @@
 
     <artifactId>mall-tools</artifactId>
     <packaging>pom</packaging>
+
     <modules>
         <module>mall-security</module>
     </modules>
