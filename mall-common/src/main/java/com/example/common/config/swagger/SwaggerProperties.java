@@ -43,4 +43,8 @@ public class SwaggerProperties {
      * 文档联系人邮箱
      */
     private String contactEmail;
+    /**
+     * 分组名称
+     */
+    private String groupName;
 }

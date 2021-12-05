@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.PropertyAccessor;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.jsontype.impl.LaissezFaireSubTypeValidator;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
@@ -22,6 +23,7 @@ import java.time.Duration;
 public abstract class BaseRedisConfig {
 
     @Bean
+    @Primary
     public RedisTemplate<String, Object> redisTemplate(RedisSerializer<Object> valueSerializer, RedisConnectionFactory factory) {
         // 创建redis模板对象，设置连接工厂
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();

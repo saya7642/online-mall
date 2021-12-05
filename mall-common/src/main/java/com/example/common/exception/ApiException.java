@@ -8,11 +8,11 @@ import com.example.common.api.IResult;
  * Created by admin on 2021/10/01.
  */
 public class ApiException extends RuntimeException {
-    private IResult resultCode;
+    private IResult result;
 
-    public ApiException(IResult resultCode) {
-        super(resultCode.getMessage());
-        this.resultCode = resultCode;
+    public ApiException(IResult result) {
+        super(result.getMessage());
+        this.result = result;
     }
 
     public ApiException(String message) {
@@ -27,7 +27,8 @@ public class ApiException extends RuntimeException {
         super(message, cause);
     }
 
-    public IResult getResultCode() {
-        return resultCode;
+    public IResult getResult() {
+        return result;
     }
+
 }

@@ -1,0 +1,4 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+com.example.mpg.config.MybatisPlusConfiguration,\
+com.example.mpg.config.RedisConfiguration,\
+com.example.mpg.config.JacksonConfig

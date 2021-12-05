@@ -3,6 +3,7 @@ package com.example.common.log;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.core.util.URLUtil;
 import cn.hutool.json.JSONUtil;
+import com.example.common.util.ServletUtils;
 import io.swagger.annotations.ApiOperation;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -38,28 +39,27 @@ public class WebLogAspect {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(WebLogAspect.class);
 
-    @Pointcut("execution(public * com.example.controller.*.*(..)) || execution(public * com.example.*.controller.*.*(..))")
+    @Pointcut("execution(public * com.example.*.controller.*.*(..))")
     public void webLog() { }
 
     @Pointcut("@annotation(com.example.common.annotation.Log)")
     public void log() { }
 
 
-    @Before("log()")
+    @Before("webLog()")
     public void doBefore(JoinPoint joinPoint) throws Throwable {
     }
 
-    @AfterReturning(value = "log()", returning = "ret")
+    @AfterReturning(value = "webLog()", returning = "ret")
     public void doAfterReturning(Object ret) throws Throwable {
 
     }
 
-    @Around("log()")
+    @Around("webLog()")
     public Object doAround(ProceedingJoinPoint joinPoint) throws Throwable {
         long startTime = System.currentTimeMillis();
         //获取当前请求对象
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = attributes.getRequest();
+        HttpServletRequest request = ServletUtils.getHttpServletRequest();
         //记录请求信息(通过Logstash传入Elasticsearch)
         WebLog webLog = new WebLog();
         Object result = joinPoint.proceed();

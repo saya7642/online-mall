@@ -1,0 +1,56 @@
+package $!{package.Controller};
+
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.toolkit.Wrappers;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.springframework.web.bind.annotation.*;
+
+import com.example.mpg.base.BaseController;
+import com.example.common.api.R;
+import com.example.mpg.entity.$!{entityUpper};
+import com.example.mpg.service.$!{entityUpper}Service;
+
+import javax.annotation.Resource;
+
+@RestController
+@RequestMapping("/$!{entityLower}")
+public class $!{entityUpper}Controller {
+
+    @Resource
+    private $!{entityUpper}Service $!{entityLower}Service;
+
+    @PostMapping
+    public R save(@RequestBody $!{entityUpper} $!{entityLower}) {
+        return R.success($!{entityLower}Service.save($!{entityLower}));
+    }
+
+    @PutMapping
+    public R update(@RequestBody $!{entityUpper} $!{entityLower}) {
+        return R.success($!{entityLower}Service.updateById($!{entityLower}));
+    }
+
+    @DeleteMapping("/{id}")
+    public R delete(@PathVariable Long id) {
+        Boolean res = $!{entityLower}Service.removeById(id);
+        return R.success(res);
+    }
+
+    @GetMapping("/{id}")
+    public R findById(@PathVariable Long id) {
+        return R.success($!{entityLower}Service.getById(id));
+    }
+
+    @GetMapping
+    public R findAll() {
+        return R.success($!{entityLower}Service.list());
+    }
+
+    @GetMapping("/page")
+    public R findPage(@RequestParam(defaultValue = "") String name,
+                      @RequestParam(defaultValue = "1") Integer pageNum,
+                      @RequestParam(defaultValue = "10") Integer pageSize) {
+        LambdaQueryWrapper<$!{entityUpper}> wrapper = Wrappers.lambdaQuery();
+
+        return R.success($!{entityLower}Service.page(new Page<>(pageNum, pageSize), wrapper));
+    }
+}

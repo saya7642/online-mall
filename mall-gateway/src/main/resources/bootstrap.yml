@@ -1,0 +1,33 @@
+mall:
+  nacos:
+    ip: @pom.nacos.ip@
+    port: @pom.nacos.port@
+    namespace: @pom.nacos.namespace@
+
+spring:
+  main:
+    allow-bean-definition-overriding: true
+  application:
+    name: @project.artifactId@
+  profiles:
+    active: @pom.profile.name@
+  cloud:
+    nacos:
+      config:
+        server-addr: ${mall.nacos.ip}:${mall.nacos.port}
+        namespace: ${mall.nacos.namespace}
+        file-extension: yml
+        enabled: true
+        shared-configs:
+          - data-id: mysql.yml
+          - data-id: redis.yml
+          - data-id: common.yml
+            refresh: true
+      discovery:
+        server-addr: ${mall.nacos.ip}:${mall.nacos.port}
+        namespace: ${mall.nacos.namespace}
+
+logging:
+  level:
+    root: info
+    com.example: debug

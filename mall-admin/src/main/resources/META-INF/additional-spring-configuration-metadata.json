@@ -1,0 +1,18 @@
+{
+  "properties": [
+    {
+      "name": "mall.nacos.ip",
+      "type": "java.lang.String",
+      "description": "Description for mall.nacos.ip."
+    },
+    {
+      "name": "mall.nacos.port",
+      "type": "java.lang.String",
+      "description": "Description for mall.nacos.port."
+    },
+    {
+      "name": "mall.nacos.namespace",
+      "type": "java.lang.String",
+      "description": "Description for mall.nacos.namespace."
+    }
+  ] }

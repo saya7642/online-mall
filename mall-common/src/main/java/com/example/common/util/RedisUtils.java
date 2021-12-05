@@ -15,6 +15,7 @@
  */
 package com.example.common.util;
 
+import com.example.common.constant.CacheKey;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import org.slf4j.Logger;
@@ -36,9 +37,6 @@ public class RedisUtils {
     private static final Logger log = LoggerFactory.getLogger(RedisUtils.class);
 
     private final RedisTemplate<String, Object> redisTemplate;
-
-    //@Value("${jwt.online-key}")
-    //private String onlineKey;
 
     public RedisUtils(RedisTemplate<String, Object> redisTemplate) {
         this.redisTemplate = redisTemplate;
@@ -172,13 +170,14 @@ public class RedisUtils {
      *
      * @param keys 可以传一个值 或多个
      */
-    public void del(String... keys) {
+    public boolean del(String... keys) {
         if (keys != null && keys.length > 0) {
             if (keys.length == 1) {
                 boolean result = redisTemplate.delete(keys[0]);
                 log.debug("--------------------------------------------");
                 log.debug(new StringBuilder("删除缓存：").append(keys[0]).append("，结果：").append(result).toString());
                 log.debug("--------------------------------------------");
+                return result;
             } else {
                 Set<String> keySet = new HashSet<>();
                 for (String key : keys) {
@@ -189,8 +188,10 @@ public class RedisUtils {
                 log.debug("成功删除缓存：" + keySet.toString());
                 log.debug("缓存删除数量：" + count + "个");
                 log.debug("--------------------------------------------");
+                return count > 0;
             }
         }
+        return false;
     }
 
     // ============================String=============================
